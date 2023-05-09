@@ -1,0 +1,7 @@
+.card {
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #FFFFFF;
+  color: black;
+  min-height: 362px;
+}

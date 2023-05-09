@@ -2,19 +2,79 @@
 <html lang="ru">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="страница о интересных местах">
-    <meta name="keywords" content="интересные места, путешествия, Россия">
-    <meta name="author" content="Виктор Воронков">
-    <title>Mesto</title>
-    <link rel="stylesheet" href="./pages/index.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="страница о интересных местах">
+  <meta name="keywords" content="интересные места, путешествия, Россия">
+  <meta name="author" content="Виктор Воронков">
+  <title>Mesto</title>
+  <link rel="stylesheet" href="./pages/index.css">
 </head>
+
 <body class="page">
-    <div class="content">
-        <header class="header">
-            
-        </header>
-    </div>
+  <div class="content">
+    <header class="header">
+      <img class="header__logo" src="./images/logo.svg" alt="Логотип">
+    </header>
+    <main>
+      <section class="profile">
+        <img class="profile__avatar" src="./images/avatar.png" alt="Аватар профиля">
+        <div class="profile-info">
+          <h1 class="profile-info__title">Жак-Ив Кусто</h1>
+          <button class="profile-info__edit-button"></button>
+          <p class="profile-info__subtitle">Исследователь океана</p>
+        </div>
+        <div class="profile__add-button"></div>
+      </section>
+      <section class="places">
+        <article class="card">
+          <img class="card__image" src="./images/place-karachaevo.jpg" alt="Карачаевск">
+          <div class="card__info">
+            <h2 class="card__title">Карачаевск</h2>
+            <a class="card__favico" href="#"></a>
+          </div>
+        </article>
+        <article class="card">
+          <img class="card__image" src="./images/place-elbrus.jpg" alt="Гора Эльбрус">
+          <div class="card__info">
+            <h2 class="card__title">Гора Эльбрус</h2>
+            <a class="card__favico" href="#"></a>
+          </div>
+        </article>
+        <article class="card">
+          <img class="card__image" src="./images/place-dombmay.jpg" alt="Домбай">
+          <div class="card__info">
+            <h2 class="card__title">Домбай</h2>
+            <a class="card__favico" href="#"></a>
+          </div>
+        </article>
+        <article class="card">
+          <img class="card__image" src="./images/place-elbrus.jpg" alt="Гора Эльбрус">
+          <div class="card__info">
+            <h2 class="card__title">Гора Эльбрус</h2>
+            <a class="card__favico" href="#"></a>
+          </div>
+        </article>
+        <article class="card">
+          <img class="card__image" src="./images/place-dombmay.jpg" alt="Домбай">
+          <div class="card__info">
+            <h2 class="card__title">Домбай</h2>
+            <a class="card__favico" href="#"></a>
+          </div>
+        </article>
+        <article class="card">
+          <img class="card__image" src="./images/place-karachaevo.jpg" alt="Карачаевск">
+          <div class="card__info">
+            <h2 class="card__title">Карачаево-Черкеск</h2>
+            <a class="card__favico" href="#"></a>
+          </div>
+        </article>
+      </section>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">@ 2020 Mesto Russia</p>
+    </footer>
+  </div>
 </body>
+
 </html>
