@@ -6,3 +6,11 @@
   row-gap: 16px;
   align-content: center;
 }
+
+@media screen and (max-width: 767px) {
+  .profile-info {
+    margin: 26px 0 0;
+    row-gap: 14px;
+  }
+
+}
