@@ -1,4 +1,4 @@
-.popup__user-info-fieldset {
+.popup__user-info-form {
   margin: 24px 0 0;
   border: none;
   display: flex;
@@ -7,8 +7,7 @@
 }
 
 @media screen and (max-width: 767px) {
-  .popup__user-info-fieldset {
+  .popup__user-info-form {
     margin-top: 45px;
   }
-
 }

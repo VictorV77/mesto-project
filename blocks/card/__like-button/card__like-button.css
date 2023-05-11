@@ -1,21 +1,16 @@
-.card__favico {
+.card__like-button {
   width: 22px;
   height: 19px;
   margin-right: 20px;
-  color: black;
   background-image: url(../../../images/favico.svg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   border: none;
-  background-color: white;
+  background-color: transparent;
   cursor: pointer;
 }
 
-.card__favico:hover {
+.card__like-button:hover {
   opacity: 0.5;
-}
-
-.card__favico:active {
-  background-image: url(../../../images/favico-active.svg);
 }

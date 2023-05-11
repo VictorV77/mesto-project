@@ -1,15 +1,17 @@
 .profile__add-button {
-  min-width: 150px;
-  min-height: 50px;
+  width: 150px;
+  height: 50px;
   background-image: url(../../../images/add-button.svg);
-  background-color: black;
+  background-color: transparent;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 16px;
+  background-size: 22px 22px;
   margin-left: auto;
   border: 2px solid #FFFFFF;
   display: block;
   cursor: pointer;
+  border-radius: 2px;
+  transition: opacity 1s;
 }
 
 .profile__add-button:hover {
@@ -20,5 +22,6 @@
   .profile__add-button {
     margin: 36px 0 0;
     width: 282px;
+    background-size: 16px 16px;
   }
 }
