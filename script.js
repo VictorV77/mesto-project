@@ -10,6 +10,7 @@ const addPlaceButton = document.querySelector('.profile__add-button');
 const addPlacePopupCloseButton = addPlacePopup.querySelector('.popup__close-icon');
 const cardCatalog = document.querySelector('.places');
 const likeButton = cardCatalog.querySelectorAll('.card__like-button');
+const trashButton = cardCatalog.querySelectorAll('.card__trash-button');
 
 profileEditNameInput.value = profileName.textContent;
 profileEditJobInput.value = profileJob.textContent;
@@ -49,6 +50,9 @@ function newCardSubmit(evt) {
   newCard.querySelector('.card__like-button').addEventListener('click', function (evt) {
     evt.target.classList.toggle('card__like-button_active');
   });
+  newCard.querySelector('.card__trash-button').addEventListener('click', function (evt) {
+    evt.target.closest('.card').remove();
+  });
   cardCatalog.prepend(newCard);
   placeLink.value = ' ';
   placeName.value = ' ';
@@ -66,6 +70,12 @@ for (let i = 0; i < likeButton.length; i++) {
   likeButton[i].addEventListener('click', function (evt) {
     evt.target.classList.toggle('card__like-button_active');
   });
+}
+
+for (let i = 0; i < trashButton.length; i++) {
+  trashButton[i].addEventListener('click', function (evt) {
+    evt.target.closest('.card').remove();
+  })
 }
 
 
