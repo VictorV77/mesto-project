@@ -9,6 +9,7 @@ const addPlacePopup = document.querySelector('.popup_type_add-place');
 const addPlaceButton = document.querySelector('.profile__add-button');
 const addPlacePopupCloseButton = addPlacePopup.querySelector('.popup__close-icon');
 const cardCatalog = document.querySelector('.places');
+const likeButton = cardCatalog.querySelectorAll('.card__like-button');
 
 profileEditNameInput.value = profileName.textContent;
 profileEditJobInput.value = profileJob.textContent;
@@ -45,6 +46,9 @@ function newCardSubmit(evt) {
   newCard.querySelector('.card__image').src = placeLink.value;
   newCard.querySelector('.card__image').alt = placeName.value;
   newCard.querySelector('.card__title').textContent = placeName.value;
+  newCard.querySelector('.card__like-button').addEventListener('click', function (evt) {
+    evt.target.classList.toggle('card__like-button_active');
+  });
   cardCatalog.prepend(newCard);
   placeLink.value = ' ';
   placeName.value = ' ';
@@ -57,3 +61,12 @@ profilePopupCloseButton.addEventListener('click', hideEditProfilePopup);
 addPlacePopupCloseButton.addEventListener('click', hideAddPlacePopup);
 userProfilePopup.addEventListener('submit', handleFormSubmit);
 addPlacePopup.addEventListener('submit', newCardSubmit);
+
+for (let i = 0; i < likeButton.length; i++) {
+  likeButton[i].addEventListener('click', function (evt) {
+    evt.target.classList.toggle('card__like-button_active');
+  });
+}
+
+
+
