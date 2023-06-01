@@ -73,10 +73,10 @@
   <footer class="footer">
     <p class="footer__copyright" lang="en">&commat; 2023 Mesto Russia</p>
   </footer>
-  <div class="popup edit-profile-popup">
+  <div class="popup popup_type_user-profile">
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="popup__user-info-form" name="userProfileInfo">
+      <form class="popup__input-form" name="userProfileInfo">
         <input class="popup__text-input popup__text-input_data_name" type="text" name="name" placeholder="Имя Фамилия"
           required>
         <input class="popup__text-input popup__text-input_data_profession" type="text" name="profession"
@@ -86,19 +86,28 @@
       <button class="popup__close-icon" type="button" aria-label="Закрыть окно"></button>
     </div>
   </div>
-  <div class="popup add-place-popup">
+  <div class="popup popup_type_add-place">
     <div class="popup__container">
       <h2 class="popup__title">Новое место</h2>
-      <form class="popup__user-info-form" name="userProfileInfo">
-        <input class="popup__text-input popup__text-input_data_name" type="text" name="place-name" placeholder="Название"
+      <form class="popup__input-form" name="userProfileInfo">
+        <input class="popup__text-input popup__text-input_data_place-name" type="text" name="place-name" placeholder="Название"
           required>
-        <input class="popup__text-input popup__text-input_data_profession" type="text" name="place-picture"
+        <input class="popup__text-input popup__text-input_data_place-link" type="text" name="place-picture"
           placeholder="Ссылка на каритнку" required>
         <button class="popup__submit-button" type="submit">Сохранить</button>
       </form>
       <button class="popup__close-icon" type="button" aria-label="Закрыть окно"></button>
     </div>
   </div>
+  <template id="card-template">
+    <article class="card">
+      <img class="card__image" src=" " alt=" ">
+      <div class="card__info">
+        <h2 class="card__title"></h2>
+        <button class="card__like-button" type="button" aria-label="Мне нравится"></button>
+      </div>
+    </article>
+  </template>
   <script src="./script.js"></script>
 </body>
 
