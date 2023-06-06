@@ -60,27 +60,19 @@ function showCardsFromArray() {
 
 showCardsFromArray();
 
-function showEditProfilePopup() {
-  userProfilePopup.classList.add('popup_opened');
+function openPopup(popupElement) {
+  popupElement.classList.add('popup_opened');
 };
 
-function hideEditProfilePopup() {
-  userProfilePopup.classList.remove('popup_opened');
-};
-
-function showAddPlacePopup() {
-  addPlacePopup.classList.add('popup_opened');
-};
-
-function hideAddPlacePopup() {
-  addPlacePopup.classList.remove('popup_opened');
+function closePopup(popupElement) {
+  popupElement.classList.remove('popup_opened');
 };
 
 function handleFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = profileEditNameInput.value;
   profileJob.textContent = profileEditJobInput.value;
-  hideEditProfilePopup();
+  closePopup(userProfilePopup);
 };
 
 function newCardSubmit(evt) {
@@ -101,14 +93,26 @@ function newCardSubmit(evt) {
   cardCatalog.prepend(newCard);
   placeLink.value = ' ';
   placeName.value = ' ';
-  hideAddPlacePopup();
+  closePopup(addPlacePopup);
 };
 
 
-profileEditButton.addEventListener('click', showEditProfilePopup);
-addPlaceButton.addEventListener('click', showAddPlacePopup);
-profilePopupCloseButton.addEventListener('click', hideEditProfilePopup);
-addPlacePopupCloseButton.addEventListener('click', hideAddPlacePopup);
+profileEditButton.addEventListener('click', function(){
+  openPopup(userProfilePopup);
+});
+
+profilePopupCloseButton.addEventListener('click', function(){
+  closePopup(userProfilePopup);
+});
+
+addPlaceButton.addEventListener('click', function(){
+  openPopup(addPlacePopup);
+});
+
+addPlacePopupCloseButton.addEventListener('click', function(){
+  closePopup(addPlacePopup);
+});
+
 userProfilePopup.addEventListener('submit', handleFormSubmit);
 addPlacePopup.addEventListener('submit', newCardSubmit);
 
