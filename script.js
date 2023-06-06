@@ -42,8 +42,8 @@ const initialCards = [
 profileEditNameInput.value = profileName.textContent;
 profileEditJobInput.value = profileJob.textContent;
 
-function showCardsFromArray() {
-  initialCards.forEach(function (item) {
+function showCardsFromArray(arr) {
+  arr.forEach(function (item) {
     const cardTemplate = document.querySelector('#card-template').content;
     const cardFromArray = cardTemplate.querySelector('.card').cloneNode(true);
     cardFromArray.querySelector('.card__image').src = item.link;
@@ -67,7 +67,7 @@ function showCardsFromArray() {
   });
 };
 
-showCardsFromArray();
+showCardsFromArray(initialCards);
 
 function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
@@ -92,6 +92,14 @@ function newCardSubmit(evt) {
   const newCard = cardTemplate.querySelector('.card').cloneNode(true);
   newCard.querySelector('.card__image').src = placeLink.value;
   newCard.querySelector('.card__image').alt = placeName.value;
+  newCard.querySelector('.card__image').addEventListener('click', function (evt) {
+    openPopup(cardImagePopup);
+    cardImagePopup.querySelector('.popup__card-image').src = evt.target.src;
+    const parentCard = evt.target.closest('.card');
+    const imageCaption = parentCard.querySelector('.card__title');
+    cardImagePopup.querySelector('.popup__image-caption').textContent = imageCaption.textContent;
+    cardImagePopup.querySelector('.popup__card-image').alt = imageCaption.textContent;
+  })
   newCard.querySelector('.card__title').textContent = placeName.value;
   newCard.querySelector('.card__like-button').addEventListener('click', function (evt) {
     evt.target.classList.toggle('card__like-button_active');
@@ -100,8 +108,8 @@ function newCardSubmit(evt) {
     evt.target.closest('.card').remove();
   });
   cardCatalog.prepend(newCard);
-  placeLink.value = ' ';
-  placeName.value = ' ';
+  placeLink.value = '';
+  placeName.value = '';
   closePopup(addPlacePopup);
 };
 
