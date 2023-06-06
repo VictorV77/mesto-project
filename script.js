@@ -11,6 +11,7 @@ const addPlacePopupCloseButton = addPlacePopup.querySelector('.popup__close-icon
 const cardCatalog = document.querySelector('.places');
 const likeButton = cardCatalog.querySelectorAll('.card__like-button');
 const trashButton = cardCatalog.querySelectorAll('.card__trash-button');
+const cardImagePopup = document.querySelector('.popup_type_card-image');
 const initialCards = [
   {
     name: 'Архыз',
@@ -42,11 +43,19 @@ profileEditNameInput.value = profileName.textContent;
 profileEditJobInput.value = profileJob.textContent;
 
 function showCardsFromArray() {
-  initialCards.forEach(function(item) {
+  initialCards.forEach(function (item) {
     const cardTemplate = document.querySelector('#card-template').content;
     const cardFromArray = cardTemplate.querySelector('.card').cloneNode(true);
     cardFromArray.querySelector('.card__image').src = item.link;
     cardFromArray.querySelector('.card__image').alt = item.name;
+    cardFromArray.querySelector('.card__image').addEventListener('click', function (evt) {
+      openPopup(cardImagePopup);
+      cardImagePopup.querySelector('.popup__card-image').src = evt.target.src;
+      const parentCard = evt.target.closest('.card');
+      const imageCaption = parentCard.querySelector('.card__title');
+      cardImagePopup.querySelector('.popup__image-caption').textContent = imageCaption.textContent;
+      cardImagePopup.querySelector('.popup__card-image').alt = imageCaption.textContent;
+    })
     cardFromArray.querySelector('.card__title').textContent = item.name;
     cardFromArray.querySelector('.card__like-button').addEventListener('click', function (evt) {
       evt.target.classList.toggle('card__like-button_active');
@@ -97,21 +106,27 @@ function newCardSubmit(evt) {
 };
 
 
-profileEditButton.addEventListener('click', function(){
+profileEditButton.addEventListener('click', function () {
   openPopup(userProfilePopup);
 });
 
-profilePopupCloseButton.addEventListener('click', function(){
+profilePopupCloseButton.addEventListener('click', function () {
   closePopup(userProfilePopup);
 });
 
-addPlaceButton.addEventListener('click', function(){
+addPlaceButton.addEventListener('click', function () {
   openPopup(addPlacePopup);
 });
 
-addPlacePopupCloseButton.addEventListener('click', function(){
+addPlacePopupCloseButton.addEventListener('click', function () {
   closePopup(addPlacePopup);
 });
+
+cardImagePopup.addEventListener('click', function () {
+  closePopup(cardImagePopup);
+});
+
+
 
 userProfilePopup.addEventListener('submit', handleFormSubmit);
 addPlacePopup.addEventListener('submit', newCardSubmit);
