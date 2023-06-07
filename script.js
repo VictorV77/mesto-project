@@ -12,6 +12,9 @@ const cardCatalog = document.querySelector('.places');
 const likeButton = cardCatalog.querySelectorAll('.card__like-button');
 const trashButton = cardCatalog.querySelectorAll('.card__trash-button');
 const cardImagePopup = document.querySelector('.popup_type_card-image');
+const cardTemplate = document.querySelector('#card-template').content;
+const popupImageCaption = cardImagePopup.querySelector('.popup__image-caption');
+const cardImageForPopup = cardImagePopup.querySelector('.popup__card-image');
 const initialCards = [
   {
     name: 'Архыз',
@@ -39,22 +42,19 @@ const initialCards = [
   }
 ];
 
-profileEditNameInput.value = profileName.textContent;
-profileEditJobInput.value = profileJob.textContent;
-
 function showCardsFromArray(arr) {
   arr.forEach(function (item) {
-    const cardTemplate = document.querySelector('#card-template').content;
     const cardFromArray = cardTemplate.querySelector('.card').cloneNode(true);
-    cardFromArray.querySelector('.card__image').src = item.link;
-    cardFromArray.querySelector('.card__image').alt = item.name;
-    cardFromArray.querySelector('.card__image').addEventListener('click', function (evt) {
+    const cardImage = cardFromArray.querySelector('.card__image');
+    cardImage.src = item.link;
+    cardImage.alt = item.name;
+    cardImage.addEventListener('click', function (evt) {
       openPopup(cardImagePopup);
-      cardImagePopup.querySelector('.popup__card-image').src = evt.target.src;
+      cardImageForPopup.src = evt.target.src;
       const parentCard = evt.target.closest('.card');
       const imageCaption = parentCard.querySelector('.card__title');
-      cardImagePopup.querySelector('.popup__image-caption').textContent = imageCaption.textContent;
-      cardImagePopup.querySelector('.popup__card-image').alt = imageCaption.textContent;
+      popupImageCaption.textContent = imageCaption.textContent;
+      cardImageForPopup.alt = imageCaption.textContent;
     })
     cardFromArray.querySelector('.card__title').textContent = item.name;
     cardFromArray.querySelector('.card__like-button').addEventListener('click', function (evt) {
@@ -116,6 +116,8 @@ function newCardSubmit(evt) {
 
 profileEditButton.addEventListener('click', function () {
   openPopup(userProfilePopup);
+  profileEditNameInput.value = profileName.textContent;
+  profileEditJobInput.value = profileJob.textContent;
 });
 
 profilePopupCloseButton.addEventListener('click', function () {
