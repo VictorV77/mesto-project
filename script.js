@@ -11,6 +11,8 @@ const cardImagePopup = document.querySelector('.popup_type_card-image');
 const cardTemplate = document.querySelector('#card-template').content;
 const popupImageCaption = cardImagePopup.querySelector('.popup__image-caption');
 const cardImageForPopup = cardImagePopup.querySelector('.popup__card-image');
+const placeName = addPlacePopup.querySelector('.popup__text-input_data_place-name');
+const placeLink = addPlacePopup.querySelector('.popup__text-input_data_place-link');
 const initialCards = [
   {
     name: 'Архыз',
@@ -45,7 +47,7 @@ function createCard(object) {
   newCardImage.alt = object.name;
   newCardImage.addEventListener('click', function (evt) {
     openPopup(cardImagePopup);
-    cardImageForPopup.src = evt.target.src;
+    cardImageForPopup.src = object.link;
     popupImageCaption.textContent = object.name;
     cardImageForPopup.alt = object.name;
   });
@@ -84,12 +86,9 @@ function handleUserProfileFormSubmit(evt) {
 
 function handleNewCardFormSubmit(evt) {
   evt.preventDefault();
-  const placeName = addPlacePopup.querySelector('.popup__text-input_data_place-name');
-  const placeLink = addPlacePopup.querySelector('.popup__text-input_data_place-link');
-  const object = {
-    name: placeName.value,
-    link: placeLink.value
-  };
+  const object = {};
+  object.name = placeName.value;
+  object.link = placeLink.value;
   renderCard(object);
   placeLink.value = '';
   placeName.value = '';
