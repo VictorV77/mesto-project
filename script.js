@@ -13,6 +13,7 @@ const popupImageCaption = cardImagePopup.querySelector('.popup__image-caption');
 const cardImageForPopup = cardImagePopup.querySelector('.popup__card-image');
 const placeName = addPlacePopup.querySelector('.popup__text-input_data_place-name');
 const placeLink = addPlacePopup.querySelector('.popup__text-input_data_place-link');
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -71,10 +72,12 @@ initialCards.forEach(function (item) {
 
 function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
+  document.addEventListener('keydown', isEscape);
 };
 
 function closePopup(popupElement) {
   popupElement.classList.remove('popup_opened');
+  document.removeEventListener('keydown', isEscape);
 };
 
 function handleUserProfileFormSubmit(evt) {
@@ -105,9 +108,18 @@ addPlaceButton.addEventListener('click', function () {
   openPopup(addPlacePopup);
 });
 
-document.querySelectorAll('.popup__close-icon').forEach(button => {
-  const buttonsPopup = button.closest('.popup');
-  button.addEventListener('click', () => closePopup(buttonsPopup));
+function isEscape(evt) {
+  if (evt.key === 'Escape') {
+    closePopup(document.querySelector('.popup_opened'));
+  }
+};
+
+document.querySelectorAll('.popup').forEach((popup) => {
+  popup.addEventListener('click', function(evt) {
+    if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close-icon')) {
+    closePopup(popup);
+    }
+  });
 });
 
 userProfilePopup.addEventListener('submit', handleUserProfileFormSubmit);
