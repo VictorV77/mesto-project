@@ -4,6 +4,7 @@ const profileName = document.querySelector('.profile-info__title');
 const profileJob = document.querySelector('.profile-info__subtitle');
 const profileEditNameInput = userProfilePopup.querySelector('.popup__text-input_data_name');
 const profileEditJobInput = userProfilePopup.querySelector('.popup__text-input_data_profession');
+const addPlaceForm = document.forms.addPlaceForm;
 const addPlacePopup = document.querySelector('.popup_type_add-place');
 const addPlaceButton = document.querySelector('.profile__add-button');
 const cardCatalog = document.querySelector('.places');
@@ -11,8 +12,8 @@ const cardImagePopup = document.querySelector('.popup_type_card-image');
 const cardTemplate = document.querySelector('#card-template').content;
 const popupImageCaption = cardImagePopup.querySelector('.popup__image-caption');
 const cardImageForPopup = cardImagePopup.querySelector('.popup__card-image');
-const placeName = addPlacePopup.querySelector('.popup__text-input_data_place-name');
-const placeLink = addPlacePopup.querySelector('.popup__text-input_data_place-link');
+const placeName = addPlaceForm.elements.placeName;
+const placeLink = addPlaceForm.elements.placePicture;
 
 const initialCards = [
   {
@@ -93,8 +94,7 @@ function handleNewCardFormSubmit(evt) {
   object.name = placeName.value;
   object.link = placeLink.value;
   renderCard(object);
-  placeLink.value = '';
-  placeName.value = '';
+  addPlaceForm.reset();
   closePopup(addPlacePopup);
 };
 
