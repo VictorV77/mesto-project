@@ -34,11 +34,13 @@
   <div class="popup popup_type_user-profile">
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="popup__input-form" name="userProfileInfo">
-        <input class="popup__text-input popup__text-input_data_name" type="text" name="name" placeholder="Имя Фамилия"
-          autocomplete="given-name" required>
-        <input class="popup__text-input popup__text-input_data_profession" type="text" name="profession"
-          placeholder="Профессия" autocomplete="organization-title" required>
+      <form class="popup__input-form" novalidate name="userProfileForm">
+        <input id="name-input" class="popup__text-input popup__text-input_data_name" type="text" name="name" placeholder="Имя Фамилия"
+          autocomplete="given-name" minlength="2" maxlength="40" required>
+        <span class="name-input-error popup__text-input-error"></span>
+        <input id="profession-input" class="popup__text-input popup__text-input_data_profession" type="text" name="profession"
+          placeholder="Профессия" autocomplete="organization-title" minlength="2" maxlength="200" required>
+        <span class="profession-input-error popup__text-input-error"></span>
         <button class="popup__submit-button" type="submit">Сохранить</button>
       </form>
       <button class="popup__close-icon" type="button" aria-label="Закрыть окно"></button>
@@ -47,11 +49,13 @@
   <div class="popup popup_type_add-place">
     <div class="popup__container">
       <h2 class="popup__title">Новое место</h2>
-      <form class="popup__input-form" name="addPlaceForm">
-        <input class="popup__text-input popup__text-input_data_place-name" type="text" name="placeName"
-          placeholder="Название" required>
-        <input class="popup__text-input popup__text-input_data_place-link" type="text" name="placePicture"
+      <form class="popup__input-form" novalidate name="addPlaceForm">
+        <input id="place-name-input" class="popup__text-input popup__text-input_data_place-name" type="text" name="placeName"
+          placeholder="Название" minlength="2" maxlength="30" required>
+        <span class="place-name-input-error popup__text-input-error"></span>
+        <input id="link-input" class="popup__text-input popup__text-input_data_place-link" type="url" name="placePicture"
           placeholder="Ссылка на каритнку" required>
+        <span class="link-input-error popup__text-input-error"></span>
         <button class="popup__submit-button" type="submit">Сохранить</button>
       </form>
       <button class="popup__close-icon" type="button" aria-label="Закрыть окно"></button>
