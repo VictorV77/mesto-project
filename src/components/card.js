@@ -1,5 +1,5 @@
 import { openPopup, closePopup } from "./modal.js";
-import { profileName, profileJob, renderCard, profileEditNameInput, profileEditJobInput, userProfilePopup, addPlacePopup } from "./index.js";
+import { profileName, profileJob, renderCard, profileEditNameInput, profileEditJobInput, userProfilePopup, addPlacePopup } from "../index.js";
 
 const cardTemplate = document.querySelector('#card-template').content;
 const cardImagePopup = document.querySelector('.popup_type_card-image');

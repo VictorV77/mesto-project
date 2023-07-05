@@ -1,6 +1,7 @@
-import { enableValidation } from "./validate.js"
-import { openPopup, closePopup } from "./modal.js";
-import { createCard, handleUserProfileFormSubmit, handleNewCardFormSubmit, } from "./card.js"
+import './pages/index.css';
+import { enableValidation } from "./components/validate.js"
+import { openPopup, closePopup } from "./components/modal.js";
+import { createCard, handleUserProfileFormSubmit, handleNewCardFormSubmit, } from "./components/card.js"
 
 //Поменять выбор всех форм через document.forms
 const profileEditButton = document.querySelector('.profile-info__edit-button');
