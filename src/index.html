@@ -34,10 +34,14 @@
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
       <form class="popup__input-form" novalidate name="userProfileForm">
-        <input id="name-input" class="popup__text-input popup__text-input_data_name" type="text" name="name"
+        <input id="name-input" class="popup__text-input popup__text-input_data_name" type="text"
+          pattern="^[a-zA-Za-яА-Я\-\s]+$"
+          data-error-message="Разрешены только латинские буквы, кириллические буквы, знаки дефиса и пробелы" name="name"
           placeholder="Имя Фамилия" autocomplete="given-name" minlength="2" maxlength="40" required>
         <span class="name-input-error popup__text-input-error"></span>
         <input id="profession-input" class="popup__text-input popup__text-input_data_profession" type="text"
+          pattern="^[a-zA-Za-яА-Я\-\s]+$"
+          data-error-message="Разрешены только латинские буквы, кириллические буквы, знаки дефиса и пробелы"
           name="profession" placeholder="Профессия" autocomplete="organization-title" minlength="2" maxlength="200"
           required>
         <span class="profession-input-error popup__text-input-error"></span>
@@ -51,7 +55,8 @@
       <h2 class="popup__title">Новое место</h2>
       <form class="popup__input-form" novalidate name="addPlaceForm">
         <input id="place-name-input" class="popup__text-input popup__text-input_data_place-name" type="text"
-          pattern="^[a-zA-Za-яА-Я\-\s]+$" data-error-message="Разрешены только латинские буквы, кириллические буквы, знаки дефиса и пробелы"
+          pattern="^[a-zA-Za-яА-Я\-\s]+$"
+          data-error-message="Разрешены только латинские буквы, кириллические буквы, знаки дефиса и пробелы"
           name="placeName" placeholder="Название" minlength="2" maxlength="30" required>
         <span class="place-name-input-error popup__text-input-error"></span>
         <input id="link-input" class="popup__text-input popup__text-input_data_place-link" type="url"
@@ -81,7 +86,6 @@
       </div>
     </article>
   </template>
-  <script type="module" src="./index.js"></script>
 </body>
 
 </html>
