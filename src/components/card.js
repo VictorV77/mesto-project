@@ -6,9 +6,6 @@ const cardImagePopup = document.querySelector('.popup_type_card-image');
 const popupImageCaption = cardImagePopup.querySelector('.popup__image-caption');
 const cardImageForPopup = cardImagePopup.querySelector('.popup__card-image');
 const addPlaceForm = document.forms.addPlaceForm;
-const placeName = addPlaceForm.elements.placeName;
-const placeLink = addPlaceForm.elements.placePicture;
-
 
 function createCard(object) {
     const newCard = cardTemplate.querySelector('.card').cloneNode(true);
@@ -31,22 +28,5 @@ function createCard(object) {
     return newCard;
 };
 
-function handleUserProfileFormSubmit(evt) {
-    evt.preventDefault();
-    profileName.textContent = profileEditNameInput.value;
-    profileJob.textContent = profileEditJobInput.value;
-    closePopup(userProfilePopup);
-};
-
-function handleNewCardFormSubmit(evt) {
-    evt.preventDefault();
-    const object = {};
-    object.name = placeName.value;
-    object.link = placeLink.value;
-    renderCard(object);
-    addPlaceForm.reset();
-    closePopup(addPlacePopup);
-};
-
-export { createCard, handleUserProfileFormSubmit, handleNewCardFormSubmit, }
+export { createCard }
 

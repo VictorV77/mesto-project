@@ -1,4 +1,8 @@
-import { isEscape } from "./utils.js";
+export function isEscape(evt) {
+  if (evt.key === 'Escape') {
+    closePopup(document.querySelector('.popup_opened'));
+  }
+};
 
 function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
