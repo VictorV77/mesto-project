@@ -94,7 +94,14 @@ function handleNewCardFormSubmit(evt) {
 userProfileForm.addEventListener('submit', handleUserProfileFormSubmit);
 addPlaceForm.addEventListener('submit', handleNewCardFormSubmit);
 
-enableValidation();
+enableValidation({
+  formSelector: '.popup__input-form',
+  inputSelector: '.popup__text-input',
+  submitButtonSelector: '.popup__submit-button',
+  inactiveButtonClass: 'popup__submit-button_disabled',
+  inputErrorClass: 'popup__text-input_type_error',
+  errorClass: 'popup__text-input-error'
+});
 
 export { profileName, profileJob, renderCard, profileEditNameInput, profileEditJobInput, userProfilePopup, addPlacePopup };
 
