@@ -24,7 +24,9 @@ const profileAvatarPlace = profile.querySelector('.profile__avatar-place');
 const changeAvatarPopup = document.querySelector('.popup_type_change-avatar');
 const profileAvatar = document.querySelector('.profile__avatar');
 const profileAvatarEditLinkInput = changeAvatarForm.elements.avatarLink;
-
+const submitAvatar = changeAvatarForm.querySelector('.popup__submit-button');
+const submitUserInfo = userProfileForm.querySelector('.popup__submit-button');
+const submitNewCard = addPlaceForm.querySelector('.popup__submit-button');
 export let userId;
 
 function renderCard(object) {
@@ -74,6 +76,7 @@ document.querySelectorAll('.popup').forEach((popup) => {
 
 function handleUserProfileFormSubmit(evt) {
   evt.preventDefault();
+  submitUserInfo.textContent = 'Сохранение...';
   profileName.textContent = profileEditNameInput.value;
   profileJob.textContent = profileEditJobInput.value;
   editProfile({ name: profileEditNameInput.value, about: profileEditJobInput.value })
@@ -81,17 +84,25 @@ function handleUserProfileFormSubmit(evt) {
       profileName.textContent = userInfo.name;
       profileJob.textContent = userInfo.about;
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err))
+    .finally(() => {
+      submitUserInfo.textContent = 'Сохранить';
+    });
   closePopup(userProfilePopup);
 };
 
 function handleNewCardFormSubmit(evt) {
   evt.preventDefault();
+  submitNewCard.textContent = 'Сохранение...';
   postCard({ name: placeName.value, link: placeLink.value })
     .then((object) => {
       renderCard(object);
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err))
+    .finally(() => {
+      submitNewCard.textContent = 'Сохранить';
+    });
+
   addPlaceForm.reset();
   closePopup(addPlacePopup);
   addPlaceForm.querySelector('.popup__submit-button').classList.add('popup__submit-button_disabled');
@@ -100,6 +111,7 @@ function handleNewCardFormSubmit(evt) {
 
 function handleChangeAvatarSubmit(evt) {
   evt.preventDefault();
+  submitAvatar.textContent = 'Сохранение...';
   console.log(profileAvatarEditLinkInput.value);
   changeAvatarOnServer({ avatar: profileAvatarEditLinkInput.value })
     .then(() => {
@@ -107,14 +119,21 @@ function handleChangeAvatarSubmit(evt) {
         .then((userInfo) => {
           profileAvatar.src = userInfo.avatar;
         })
-        .catch((err) => console.error(err));;
+        .catch((err) => {
+          console.error(err)
+        });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err)
+    })
+    .finally(() => {
+      submitAvatar.textContent = 'Сохранить';
+    });
+
   changeAvatarForm.reset();
   closePopup(changeAvatarPopup);
   changeAvatarForm.querySelector('.popup__submit-button').classList.add('popup__submit-button_disabled');
   changeAvatarForm.querySelector('.popup__submit-button').setAttribute('disabled', '');
-
 }
 
 changeAvatarForm.addEventListener('submit', handleChangeAvatarSubmit);
