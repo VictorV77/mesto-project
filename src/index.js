@@ -2,6 +2,7 @@ import './pages/index.css';
 import { enableValidation } from "./components/validate.js"
 import { openPopup, closePopup } from "./components/modal.js";
 import { createCard } from "./components/card.js"
+import { getUserProfile, getCards, editProfile, postCard } from "./components/api.js"
 
 //Поменять выбор всех форм через document.forms
 const profileEditButton = document.querySelector('.profile-info__edit-button');
@@ -17,42 +18,31 @@ const addPlaceButton = document.querySelector('.profile__add-button');
 const cardCatalog = document.querySelector('.places');
 const placeName = addPlaceForm.elements.placeName;
 const placeLink = addPlaceForm.elements.placePicture;
+const profile = document.querySelector('.profile');
+const profileAvatar = profile.querySelector('.profile__avatar');
 
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
+export let userId;
 
 function renderCard(object) {
   cardCatalog.prepend(createCard(object));
 };
 
-initialCards.forEach(function (item) {
-  renderCard(item);
-});
+getCards()
+  .then((cardsData) => {
+    const reversedArr = cardsData.reverse();
+    reversedArr.forEach((item) => {
+      renderCard(item);
+    })
+  })
+  .catch((err) => console.error(err))
+
+getUserProfile()
+  .then((userInfo) => {
+    profileName.textContent = userInfo.name;
+    profileJob.textContent = userInfo.about;
+    userId = userInfo._id;
+  })
+  .catch((err) => console.error(err));
 
 profileEditButton.addEventListener('click', function () {
   openPopup(userProfilePopup);
@@ -76,15 +66,22 @@ function handleUserProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = profileEditNameInput.value;
   profileJob.textContent = profileEditJobInput.value;
+  editProfile({ name: profileEditNameInput.value, about: profileEditJobInput.value })
+    .then((userInfo) => {
+      profileName.textContent = userInfo.name;
+      profileJob.textContent = userInfo.about;
+    })
+    .catch((err) => console.log(err));
   closePopup(userProfilePopup);
 };
 
 function handleNewCardFormSubmit(evt) {
   evt.preventDefault();
-  const object = {};
-  object.name = placeName.value;
-  object.link = placeLink.value;
-  renderCard(object);
+  postCard({ name: placeName.value, link: placeLink.value })
+    .then((object) => {
+      renderCard(object);
+    })
+    .catch((err) => console.log(err));
   addPlaceForm.reset();
   closePopup(addPlacePopup);
   addPlaceForm.querySelector('.popup__submit-button').classList.add('popup__submit-button_disabled');

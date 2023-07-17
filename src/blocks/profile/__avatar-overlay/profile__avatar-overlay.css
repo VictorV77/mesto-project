@@ -1,0 +1,15 @@
+.profile__avatar-overlay {
+  background-color: transparent;
+  background-size: cover;
+  z-index: 2;
+  color: #FFFFFF;
+  height: 26px;
+  width: 26px;
+  margin: auto;
+  display: none;
+  transition: opacity 1s;
+  grid-row: 1;
+  grid-column: 1;
+}
+
+;
