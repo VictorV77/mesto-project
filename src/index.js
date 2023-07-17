@@ -2,12 +2,13 @@ import './pages/index.css';
 import { enableValidation } from "./components/validate.js"
 import { openPopup, closePopup } from "./components/modal.js";
 import { createCard } from "./components/card.js"
-import { getUserProfile, getCards, editProfile, postCard } from "./components/api.js"
+import { getUserProfile, getCards, editProfile, postCard, changeAvatarOnServer } from "./components/api.js"
 
 //Поменять выбор всех форм через document.forms
 const profileEditButton = document.querySelector('.profile-info__edit-button');
 const userProfilePopup = document.querySelector('.popup_type_user-profile');
 const userProfileForm = document.forms.userProfileForm;
+const changeAvatarForm = document.forms.changeAvatarForm;
 const addPlaceForm = document.forms.addPlaceForm;
 const profileName = document.querySelector('.profile-info__title');
 const profileJob = document.querySelector('.profile-info__subtitle');
@@ -19,7 +20,10 @@ const cardCatalog = document.querySelector('.places');
 const placeName = addPlaceForm.elements.placeName;
 const placeLink = addPlaceForm.elements.placePicture;
 const profile = document.querySelector('.profile');
-const profileAvatar = profile.querySelector('.profile__avatar');
+const profileAvatarPlace = profile.querySelector('.profile__avatar-place');
+const changeAvatarPopup = document.querySelector('.popup_type_change-avatar');
+const profileAvatar = document.querySelector('.profile__avatar');
+const profileAvatarEditLinkInput = changeAvatarForm.elements.avatarLink;
 
 export let userId;
 
@@ -40,6 +44,7 @@ getUserProfile()
   .then((userInfo) => {
     profileName.textContent = userInfo.name;
     profileJob.textContent = userInfo.about;
+    profileAvatar.src = userInfo.avatar;
     userId = userInfo._id;
   })
   .catch((err) => console.error(err));
@@ -52,6 +57,11 @@ profileEditButton.addEventListener('click', function () {
 
 addPlaceButton.addEventListener('click', function () {
   openPopup(addPlacePopup);
+});
+
+profileAvatarPlace.addEventListener('click', function () {
+  profileAvatarEditLinkInput.value = profileAvatar.src;
+  openPopup(changeAvatarPopup);
 });
 
 document.querySelectorAll('.popup').forEach((popup) => {
@@ -88,6 +98,26 @@ function handleNewCardFormSubmit(evt) {
   addPlaceForm.querySelector('.popup__submit-button').setAttribute('disabled', '');
 };
 
+function handleChangeAvatarSubmit(evt) {
+  evt.preventDefault();
+  console.log(profileAvatarEditLinkInput.value);
+  changeAvatarOnServer({ avatar: profileAvatarEditLinkInput.value })
+    .then(() => {
+      getUserProfile()
+        .then((userInfo) => {
+          profileAvatar.src = userInfo.avatar;
+        })
+        .catch((err) => console.error(err));;
+    })
+    .catch((err) => console.log(err));
+  changeAvatarForm.reset();
+  closePopup(changeAvatarPopup);
+  changeAvatarForm.querySelector('.popup__submit-button').classList.add('popup__submit-button_disabled');
+  changeAvatarForm.querySelector('.popup__submit-button').setAttribute('disabled', '');
+
+}
+
+changeAvatarForm.addEventListener('submit', handleChangeAvatarSubmit);
 userProfileForm.addEventListener('submit', handleUserProfileFormSubmit);
 addPlaceForm.addEventListener('submit', handleNewCardFormSubmit);
 

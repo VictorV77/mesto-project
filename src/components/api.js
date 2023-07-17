@@ -117,4 +117,22 @@ function deleteLike(cardId) {
   })
 };
 
-export{ getUserProfile, getCards, editProfile, postCard, deleteCardFromServer, giveLike, deleteLike };
+function changeAvatarOnServer(avatar) {
+  return fetch('https://nomoreparties.co/v1/plus-cohort-26/users/me/avatar', {
+    method: 'PATCH',
+    headers: {
+      authorization: '9028b20a-a71b-4ce0-91dc-58985eb8302b',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(avatar)
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Ошибка ${res.status}`);
+      };
+    })
+};
+
+export{ getUserProfile, getCards, editProfile, postCard, deleteCardFromServer, giveLike, deleteLike, changeAvatarOnServer };
