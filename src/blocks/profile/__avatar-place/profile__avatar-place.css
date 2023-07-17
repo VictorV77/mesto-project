@@ -1,3 +1,17 @@
 .profile__avatar-place {
-
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: grid;
+  transition: 1s;
 }
+
+.profile__avatar-place:hover .profile__avatar-layout {
+  visibility: visible;
+}
+
+.profile__avatar-place:hover {
+  opacity: 0.6;
+}
+
+

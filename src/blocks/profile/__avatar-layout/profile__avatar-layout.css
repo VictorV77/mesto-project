@@ -1,0 +1,11 @@
+.profile__avatar-layout {
+  background-image: url(../../../images/edit-avatar-button.svg);
+  background-repeat: no-repeat;
+  grid-row: 1;
+  grid-column: 1;
+  z-index: 1;
+  background-size: 26px 26px;
+  background-position: center;
+  visibility: hidden;
+  transition: 0.2s;
+}
