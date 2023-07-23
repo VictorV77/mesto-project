@@ -1,138 +1,82 @@
-const { Promise } = require("core-js");
+const config = {
+  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-26',
+  headers: {
+    authorization: '9028b20a-a71b-4ce0-91dc-58985eb8302b',
+    'Content-type': 'application/json'
+  }
+}
+
+function getResponseData(res) {
+  if (res.ok) {
+    return res.json();
+  } else {
+    return Promise.reject(`Ошибка ${res.status}`);
+  };
+}
 
 function getUserProfile() {
-  return fetch('https://nomoreparties.co/v1/plus-cohort-26/users/me', {
-    headers: {
-      authorization: '9028b20a-a71b-4ce0-91dc-58985eb8302b'
-    }
+  return fetch(`${config.baseUrl}/users/me`, {
+    headers: config.headers
   })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Ошибка ${res.status}`);
-      };
-    })
+    .then(getResponseData)
 }
 
 function getCards() {
-  return fetch('https://nomoreparties.co/v1/plus-cohort-26/cards', {
-    headers: {
-      authorization: '9028b20a-a71b-4ce0-91dc-58985eb8302b'
-    }
+  return fetch(`${config.baseUrl}/cards`, {
+    headers: config.headers
   })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Ошибка ${res.status}`);
-      };
-    })
+    .then(getResponseData)
 }
 
 function editProfile(userInfo) {
-  return fetch('https://nomoreparties.co/v1/plus-cohort-26/users/me', {
+  return fetch(`${config.baseUrl}/users/me`, {
     method: 'PATCH',
-    headers: {
-      authorization: '9028b20a-a71b-4ce0-91dc-58985eb8302b',
-      'Content-Type': 'application/json'
-    },
+    headers: config.headers,
     body: JSON.stringify(userInfo)
   })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Ошибка ${res.status}`);
-      };
-    })
+    .then(getResponseData)
 };
 
 function postCard(cardInfo) {
-  return fetch('https://nomoreparties.co/v1/plus-cohort-26/cards', {
+  return fetch(`${config.baseUrl}/cards`, {
     method: 'POST',
-    headers: {
-      authorization: '9028b20a-a71b-4ce0-91dc-58985eb8302b',
-      'Content-type': 'application/json'
-    },
+    headers: config.headers,
     body: JSON.stringify(cardInfo)
   })
-  .then((res) => {
-    if (res.ok) {
-      return res.json();
-    } else {
-      return Promise.reject(`Ошибка ${res.status}`);
-    };
-  })
+  .then(getResponseData)
 };
 
 function deleteCardFromServer(cardId) {
-  return fetch(`https://nomoreparties.co/v1/plus-cohort-26/cards/${cardId}`, {
+  return fetch(`${config.baseUrl}/cards/${cardId}`, {
     method: `DELETE`,
-    headers: {
-      authorization: '9028b20a-a71b-4ce0-91dc-58985eb8302b',
-      'Content-type': 'application/json'
-    },
+    headers: config.headers,
   })
-  .then((res) => {
-    if (res.ok) {
-      return res.json();
-    } else {
-      return Promise.reject(`Ошибка ${res.status}`);
-    }
-  })
+  .then(getResponseData)
 };
 
 function giveLike(cardId) {
-  return fetch(`https://nomoreparties.co/v1/plus-cohort-26/cards/likes/${cardId}`, {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: 'PUT',
-    headers: {
-      authorization: '9028b20a-a71b-4ce0-91dc-58985eb8302b',
-      'Content-type': 'application/json'
-    },
+    headers: config.headers,
   })
-  .then((res) => {
-    if (res.ok) {
-      return res.json();
-    } else {
-      return Promise.reject(`Ошибка ${res.status}`);
-    }
-  })
+  .then(getResponseData)
 };
 
 function deleteLike(cardId) {
-  return fetch(`https://nomoreparties.co/v1/plus-cohort-26/cards/likes/${cardId}`, {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: 'DELETE',
-    headers: {
-      authorization: '9028b20a-a71b-4ce0-91dc-58985eb8302b',
-      'Content-type': 'application/json'
-    },
+    headers: config.headers,
   })
-  .then((res) => {
-    if (res.ok) {
-      return res.json();
-    } else {
-      return Promise.reject(`Ошибка ${res.status}`);
-    }
-  })
+  .then(getResponseData)
 };
 
 function changeAvatarOnServer(avatar) {
-  return fetch('https://nomoreparties.co/v1/plus-cohort-26/users/me/avatar', {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
     method: 'PATCH',
-    headers: {
-      authorization: '9028b20a-a71b-4ce0-91dc-58985eb8302b',
-      'Content-Type': 'application/json'
-    },
+    headers: config.headers,
     body: JSON.stringify(avatar)
   })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Ошибка ${res.status}`);
-      };
-    })
+    .then(getResponseData)
 };
 
 export{ getUserProfile, getCards, editProfile, postCard, deleteCardFromServer, giveLike, deleteLike, changeAvatarOnServer };

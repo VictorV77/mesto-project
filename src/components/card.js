@@ -15,12 +15,12 @@ function createCard(object) {
   const newCardTrashButton = newCard.querySelector('.card__trash-button');
   const cardLikeButton = newCard.querySelector('.card__like-button');
   const newCardTitle = newCard.querySelector('.card__title');
-  let cardLikes = newCard.querySelector('.card__like-number');
+  const cardLikes = newCard.querySelector('.card__like-number');
 
   newCardImage.src = object.link;
   newCardImage.alt = object.name;
   newCardTitle.textContent = object.name;
-  newCard.dataset.cardId = object._id;
+  newCard.id = object._id;
   newCardImage.addEventListener('click', function (evt) {
     openPopup(cardImagePopup);
     cardImageForPopup.src = object.link;
@@ -55,7 +55,7 @@ function showMyLikes(likeButton, object) {
 
 function deleteCard(evt) {
   const cardForDelete = evt.target.closest('.card');
-  const idCardForDelete = cardForDelete.getAttribute('data-card-id');
+  const idCardForDelete = cardForDelete.getAttribute('id');
   deleteCardFromServer(idCardForDelete)
   .then(() => {
     cardForDelete.remove();
@@ -65,7 +65,7 @@ function deleteCard(evt) {
 
 function toggleCardLike(evt) {
   const cardForLike = evt.target.closest('.card');
-  const cardIdForLike = cardForLike.getAttribute('data-card-id');
+  const cardIdForLike = cardForLike.getAttribute('id');
   const likeNumbers = cardForLike.querySelector('.card__like-number');
   if (evt.target.classList.contains('card__like-button_active')) {
     deleteLike(cardIdForLike)

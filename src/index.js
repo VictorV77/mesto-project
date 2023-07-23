@@ -27,27 +27,26 @@ const profileAvatarEditLinkInput = changeAvatarForm.elements.avatarLink;
 const submitAvatar = changeAvatarForm.querySelector('.popup__submit-button');
 const submitUserInfo = userProfileForm.querySelector('.popup__submit-button');
 const submitNewCard = addPlaceForm.querySelector('.popup__submit-button');
+
 export let userId;
 
 function renderCard(object) {
   cardCatalog.prepend(createCard(object));
 };
 
-getCards()
-  .then((cardsData) => {
-    const reversedArr = cardsData.reverse();
-    reversedArr.forEach((item) => {
-      renderCard(item);
-    })
-  })
-  .catch((err) => console.error(err))
-
-getUserProfile()
-  .then((userInfo) => {
+Promise.all([
+  getUserProfile(),
+  getCards()
+])
+  .then(([userInfo, cardsData]) => {
     profileName.textContent = userInfo.name;
     profileJob.textContent = userInfo.about;
     profileAvatar.src = userInfo.avatar;
     userId = userInfo._id;
+    const reversedArr = cardsData.reverse();
+    reversedArr.forEach((item) => {
+      renderCard(item);
+    })
   })
   .catch((err) => console.error(err));
 
@@ -62,7 +61,9 @@ addPlaceButton.addEventListener('click', function () {
 });
 
 profileAvatarPlace.addEventListener('click', function () {
-  profileAvatarEditLinkInput.value = profileAvatar.src;
+  profileAvatarEditLinkInput.value = '';
+  submitAvatar.setAttribute('disabled', '');
+  submitAvatar.classList.add('popup__submit-button_disabled');
   openPopup(changeAvatarPopup);
 });
 
@@ -77,18 +78,16 @@ document.querySelectorAll('.popup').forEach((popup) => {
 function handleUserProfileFormSubmit(evt) {
   evt.preventDefault();
   submitUserInfo.textContent = 'Сохранение...';
-  profileName.textContent = profileEditNameInput.value;
-  profileJob.textContent = profileEditJobInput.value;
   editProfile({ name: profileEditNameInput.value, about: profileEditJobInput.value })
     .then((userInfo) => {
       profileName.textContent = userInfo.name;
       profileJob.textContent = userInfo.about;
+      closePopup(userProfilePopup);
     })
     .catch((err) => console.log(err))
     .finally(() => {
       submitUserInfo.textContent = 'Сохранить';
     });
-  closePopup(userProfilePopup);
 };
 
 function handleNewCardFormSubmit(evt) {
@@ -97,31 +96,27 @@ function handleNewCardFormSubmit(evt) {
   postCard({ name: placeName.value, link: placeLink.value })
     .then((object) => {
       renderCard(object);
+      addPlaceForm.reset();
+      closePopup(addPlacePopup);
+      submitNewCard.classList.add('popup__submit-button_disabled');
+      submitNewCard.querySelector('.popup__submit-button').setAttribute('disabled', '');
     })
     .catch((err) => console.log(err))
     .finally(() => {
-      submitNewCard.textContent = 'Сохранить';
+      submitNewCard.textContent = 'Создать';
     });
-
-  addPlaceForm.reset();
-  closePopup(addPlacePopup);
-  addPlaceForm.querySelector('.popup__submit-button').classList.add('popup__submit-button_disabled');
-  addPlaceForm.querySelector('.popup__submit-button').setAttribute('disabled', '');
 };
 
 function handleChangeAvatarSubmit(evt) {
   evt.preventDefault();
   submitAvatar.textContent = 'Сохранение...';
-  console.log(profileAvatarEditLinkInput.value);
   changeAvatarOnServer({ avatar: profileAvatarEditLinkInput.value })
-    .then(() => {
-      getUserProfile()
-        .then((userInfo) => {
-          profileAvatar.src = userInfo.avatar;
-        })
-        .catch((err) => {
-          console.error(err)
-        });
+    .then((userInfo) => {
+      profileAvatar.src = userInfo.avatar;
+      changeAvatarForm.reset();
+      closePopup(changeAvatarPopup);
+      submitAvatar.classList.add('popup__submit-button_disabled');
+      submitAvatar.setAttribute('disabled', '');
     })
     .catch((err) => {
       console.log(err)
@@ -129,11 +124,6 @@ function handleChangeAvatarSubmit(evt) {
     .finally(() => {
       submitAvatar.textContent = 'Сохранить';
     });
-
-  changeAvatarForm.reset();
-  closePopup(changeAvatarPopup);
-  changeAvatarForm.querySelector('.popup__submit-button').classList.add('popup__submit-button_disabled');
-  changeAvatarForm.querySelector('.popup__submit-button').setAttribute('disabled', '');
 }
 
 changeAvatarForm.addEventListener('submit', handleChangeAvatarSubmit);
