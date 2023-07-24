@@ -20,15 +20,15 @@ function createCard(object) {
   newCardImage.src = object.link;
   newCardImage.alt = object.name;
   newCardTitle.textContent = object.name;
-  newCard.id = object._id;
+  const cardId = object._id;
   newCardImage.addEventListener('click', function (evt) {
     openPopup(cardImagePopup);
     cardImageForPopup.src = object.link;
     popupImageCaption.textContent = object.name;
     cardImageForPopup.alt = object.name;
   });
-  newCardTrashButton.addEventListener('click', deleteCard);
-  cardLikeButton.addEventListener('click', toggleCardLike);
+  newCardTrashButton.addEventListener('click', (evt) => deleteCard(cardId, evt));
+  cardLikeButton.addEventListener('click', (evt) => toggleCardLike(cardId, evt));
 
   showDeleteButton(newCardTrashButton, object);
   showLikes(cardLikes, object);
@@ -53,29 +53,27 @@ function showMyLikes(likeButton, object) {
   };
 };
 
-function deleteCard(evt) {
+function deleteCard(cardId, evt) {
   const cardForDelete = evt.target.closest('.card');
-  const idCardForDelete = cardForDelete.getAttribute('id');
-  deleteCardFromServer(idCardForDelete)
+  deleteCardFromServer(cardId)
   .then(() => {
     cardForDelete.remove();
   })
   .catch((err) => console.error(err))
 }
 
-function toggleCardLike(evt) {
+function toggleCardLike(cardId ,evt) {
   const cardForLike = evt.target.closest('.card');
-  const cardIdForLike = cardForLike.getAttribute('id');
   const likeNumbers = cardForLike.querySelector('.card__like-number');
   if (evt.target.classList.contains('card__like-button_active')) {
-    deleteLike(cardIdForLike)
+    deleteLike(cardId)
     .then((object) => {
       evt.target.classList.remove('card__like-button_active');
       showLikes(likeNumbers, object);
     })
     .catch((err) => console.error(err))
   } else {
-    giveLike(cardIdForLike)
+    giveLike(cardId)
     .then((object) => {
       evt.target.classList.add('card__like-button_active');
       showLikes(likeNumbers, object);
